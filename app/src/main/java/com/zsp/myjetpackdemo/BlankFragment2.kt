@@ -1,11 +1,15 @@
 package com.zsp.myjetpackdemo
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.zsp.myjetpackdemo.bean.User
+import com.zsp.myjetpackdemo.databinding.FragmentBlank2Binding
 import kotlinx.android.synthetic.main.fragment_blank2.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -21,12 +25,16 @@ private const val ARG_PARAM2 = "param2"
 class BlankFragment2 : Fragment() {
     // TODO: Rename and change types of parameters
 
-
+    private lateinit var dataBinding: FragmentBlank2Binding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btn.setOnClickListener{
+        btn.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_blankFragment2_to_blankFragment3)
         }
+        dataBinding.viewModel=User("zhou","shaopeng2222")
+        dataBinding.firstName="zhou"
+        dataBinding.lastName="shaopeng"
+        Log.d("dataBinding",dataBinding.firstName)
     }
 
     override fun onCreateView(
@@ -34,7 +42,8 @@ class BlankFragment2 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blank2, container, false)
+        dataBinding = FragmentBlank2Binding.inflate(inflater)
+        return dataBinding.root
     }
 
 }
